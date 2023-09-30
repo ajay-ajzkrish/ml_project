@@ -14,10 +14,9 @@ import os
 
 from src.utils import save_object
 
-@dataclass 
+@dataclass
 class DataTransformationConfig:
-    preprocessor_obj_file_path=os.path.join('artifacts',"proprocessor.pkl")
-
+    preprocessor_obj_file_path=os.path.join('artifacts','proprocessor.pkl')
 
 class DataTransformation:
     def __init__(self):
@@ -25,7 +24,7 @@ class DataTransformation:
 
     def get_data_transformer_object(self):
         '''
-        This function is responsible for data trnasformation
+        This function si responsible for data trnasformation
         
         '''
         try:
@@ -56,8 +55,8 @@ class DataTransformation:
 
             )
 
-            logging.info('num column scaling complete')
-            logging.info('cat column scaling complete')
+            logging.info(f"Categorical columns: {categorical_columns}")
+            logging.info(f"Numerical columns: {numerical_columns}")
 
             preprocessor=ColumnTransformer(
                 [
@@ -75,6 +74,7 @@ class DataTransformation:
             raise CustomException(e,sys)
         
     def initiate_data_transformation(self,train_path,test_path):
+
         try:
             train_df=pd.read_csv(train_path)
             test_df=pd.read_csv(test_path)
